@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}Current Improvements{% endblock %}
+
+{% block content %}
+    <h1>Current Improvements</h1>
+    {% for post in posts %}
+        <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
+        <p class="date">Improvement logged on {{ post.created }} by {{ post.author }}</p>
+    {% endfor %}
+    
+{% endblock %}

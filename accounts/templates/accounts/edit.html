@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load bootstrap_tags %}
+
+{% block title %}Edit your account{% endblock %}
+
+{% block content %}
+	<h1>Edit your account</h1>
+	<p>You can edit your account using the following form:</p>
+	<form action="." method="post" enctype="multipart/form_data">
+		{{ user_form| as_bootstrap_inline }}
+		{{ profile_form| as_bootstrap_inline }}
+		{% csrf_token %}
+		<p><input type="submit" value="Save Changes"></p>
+	</form>
+{% endblock %}

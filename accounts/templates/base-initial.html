@@ -1,0 +1,56 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{% block title %} {% endblock %}</title>
+	<link href="{% static "css/base.css" %}" rel="stylesheet">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div id="header">
+		<span class="logo">Unicorn Tracker</span>
+		{% if request.user.is_authenticated %}
+			<ul class="menu">
+				<li {% if section == "dashboard" %}class="selected"{% endif %}>
+					<a href="{% url "dashboard" %}">My dashboard</a>
+				</li>
+				<li {% if section == "new_ticket" %}class="selected"{% endif %}>
+					<a href="{% url "tracker:new_bug" %}">Log a new request</a>
+				</li>
+				<li {% if section == "existing_ticket" %}class="selected"{% endif %}>
+					<a href="{% url "tracker:bug_list" %}">View existing requests</a>
+				</li>
+				<li {% if section == "current_progress" %}class="selected"{% endif %}>
+					<a href="#">See how we're doing</a>
+				</li>
+			</ul>
+		{% endif %}
+
+		<span class="user">
+			{% if request.user.is_authenticated %}
+				Hello {{ request.user.username }},
+				<a href="{% url "logout" %}">Logout</a>
+			{% else %}
+				<a href="{% url "login" %}">Log-in</a>
+			{% endif %}
+		</span>
+	</div>
+	
+	{% if messages %}
+		<ul class="messages">
+			{% for message in messages %}
+				<li class="{{ message.tags }}">
+					{{ message|safe }}
+						<a href="#" class="close">×</a>
+				</li>
+			{% endfor %}
+		</ul>
+	{% endif %}
+
+	<div id="content">
+		{% block content %}
+		{% endblock %}
+	</div>
+</body>
+</html>
