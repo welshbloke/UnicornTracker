@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block title %}Vote Counted{% endblock %}
+
+{% block content %}
+    <h1>Your vote has been counted</h1>
+    <p><a href="{% url "improvements:improvement_list" %}">Return to current improvements</a></p>
+    <p><a href="{% url "dashboard" %}">Return to the dashboard</a></p>
+    
+{% endblock %}

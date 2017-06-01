@@ -24,6 +24,7 @@ class Improvements(models.Model):
 	created = models.DateTimeField(default=timezone.now)
 	updated = models.DateTimeField(auto_now=True)
 	status = models.CharField(max_length=10, choices=STATUS_OF_TICKET, default='todo')
+	upvoted = models.IntegerField(default=0)
 
 	objects = models.Manager()
 	improvements = ImprovementsManager()

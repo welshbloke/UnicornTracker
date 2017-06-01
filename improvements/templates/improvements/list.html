@@ -7,6 +7,8 @@
     {% for post in posts %}
         <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
         <p class="date">Improvement logged on {{ post.created }} by {{ post.author }}</p>
+        <a href="upvote{{ post.get_absolute_url }}">Vote for this bug</a>
+        <p>This has been voted for {{ post.upvoted }} times</p>
     {% endfor %}
     
 {% endblock %}

@@ -11,4 +11,8 @@ urlpatterns = [
 
 	# new bug form
 	url(r'^new_bug/$', views.new_bug, name='new_bug'),
+
+	# upvote a bug
+	url(r'^upvote/bugs/(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d{2})/'\
+		r'(?P<post>[-\w]+)/$', views.upvote, name='upvote'),
 ]

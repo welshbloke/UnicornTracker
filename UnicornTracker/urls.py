@@ -29,6 +29,10 @@ urlpatterns = [
 
     # improvement tracker urls
     url(r'^improvements/', include('improvements.urls', namespace = 'improvements', app_name='improvements')),
+
+    # paypal URLs
+    url(r'^paypal/$', include('paypal.standard.ipn.urls')),
+
 ]
 
 if settings.DEBUG:

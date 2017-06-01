@@ -29,6 +29,8 @@ def improvement_detail(request, year, month, day, post):
 		if comment_form.is_valid():
 			# Create comment object but don't save to the databse
 			new_comment = comment_form.save(commit=False)
+			# Assign the comment to the current user
+			new_comment.name = request.user.username
 			# Assign the current post to the comment
 			new_comment.post = post
 			# Save the comment to the database
@@ -45,13 +47,25 @@ def improvement_detail(request, year, month, day, post):
 def new_improvement(request):
 	if request.method == "POST":
 		form = ImprovementsPostForm(request.POST)
+		posts = Improvements.objects.all()
 		if form.is_valid():
 			post = form.save(commit=False)
 			post.author = request.user
 			post.created = timezone.now()
 			post.slug = slugify(post.title)
 			post.save()
-			return render(request, 'improvements/list.html', {'post': post})
+			return render(request, 'improvements/list.html', {'posts': posts})
 	else:
 		form = ImprovementsPostForm()
 	return render(request, 'improvements/improvementpostform.html', {'form': form})
+
+@login_required
+def upvote(request, year, month, day, post):
+	post = get_object_or_404(Improvements,
+		slug=post,
+		created__year = year,
+		created__month = month,
+		created__day = day)
+	post.upvoted += 1
+	post.save()
+	return render(request, 'improvements/voted.html')
